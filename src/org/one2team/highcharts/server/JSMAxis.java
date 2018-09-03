@@ -160,6 +160,9 @@ public class JSMAxis extends JSMBaseObject implements Axis {
   @XmlElement
   public Boolean showFirstLabel;
 
+    @XmlElement
+    public Boolean              opposite;
+
   @XmlElement
   public Double min;
   
@@ -409,5 +412,16 @@ public class JSMAxis extends JSMBaseObject implements Axis {
 
     }
   }
+
+    @Override
+    public boolean isOpposite() {
+        return opposite;
+    }
+
+    @Override
+    public Axis setOpposite(boolean opposite) {
+        this.opposite = opposite;
+        return this;
+    }
 
 }

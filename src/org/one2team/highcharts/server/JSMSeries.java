@@ -72,6 +72,11 @@ public class JSMSeries extends JSMBaseObject implements Series {
     return this.color;
   }
 
+    @Override
+    public Integer getYAxis() {
+        return this.yAxis;
+    }
+
   @Override
   public Series setCenter (String x, String y) {
   	if (center == null)
@@ -107,6 +112,12 @@ public class JSMSeries extends JSMBaseObject implements Series {
     this.states = states;
     return this;
   }
+
+    @Override
+    public Series setYAxis(Integer yAxis) {
+        this.yAxis = yAxis;
+        return this;
+    }
   
   @Override
   public States getStates () {
@@ -129,6 +140,9 @@ public class JSMSeries extends JSMBaseObject implements Series {
 
   @XmlElement
   public String type;
+
+  @XmlElement
+  public Integer yAxis;
 
   @XmlElement
   public String size;

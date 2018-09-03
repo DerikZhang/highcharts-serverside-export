@@ -1,8 +1,8 @@
 package org.one2team.highcharts.server;
 
+import org.one2team.highcharts.shared.Axis;
 import org.one2team.highcharts.shared.ChartOptions;
 import org.one2team.highcharts.shared.HighchartsFactory;
-import org.one2team.highcharts.shared.Point;
 import org.one2team.highcharts.shared.Series;
 
 public class JSMHighchartsFactory implements HighchartsFactory {
@@ -16,10 +16,15 @@ public class JSMHighchartsFactory implements HighchartsFactory {
 	  return new JSMChartOptions ();
 	}
 
-  @Override
-  public Series createSeries () {
-    return new JSMSeries ();
-  }
+    @Override
+    public Series createSeries() {
+        return new JSMSeries();
+    }
+
+    @Override
+    public Axis createAxis() {
+        return new JSMAxis();
+    }
 
   @Override
   public JSMPoint createPoint () {

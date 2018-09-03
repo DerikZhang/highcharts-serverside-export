@@ -31,7 +31,9 @@ public interface Axis {
 
 	boolean isShowFirstLabel ();
 
-	boolean isStartOnTick ();
+    boolean isStartOnTick();
+
+    boolean isOpposite();
 
 	double getTickInterval ();
 
@@ -46,6 +48,8 @@ public interface Axis {
   Axis setTickInterval (double tickInterval);
 
   Axis setStartOnTick (boolean startOnTick);
+
+    Axis setOpposite(boolean opposite);
 
   Axis setShowFirstLabel (boolean showFirstLabel);
 

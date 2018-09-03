@@ -8,7 +8,7 @@ public interface ChartOptions {
   
   Axis getXAxis ();
   
-  Axis getYAxis ();
+    Array<Axis> getYAxis();
   
   Title getTitle ();
   

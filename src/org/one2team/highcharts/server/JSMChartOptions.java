@@ -99,10 +99,10 @@ public class JSMChartOptions extends JSMBaseObject implements ChartOptions {
   }
 
   @Override
-  public Axis getYAxis () {
+    public JSMArray<Axis> getYAxis() {
     if (yAxis == null)
-      yAxis = new JSMAxis ();
-    return yAxis;
+            yAxis = new JSMArray<Axis>();
+        return (JSMArray<Axis>)yAxis;
   }
 
   @XmlTransient
@@ -136,7 +136,7 @@ public class JSMChartOptions extends JSMBaseObject implements ChartOptions {
   @XmlElement
   public JSMAxis xAxis;
 
-  @XmlElement
-  public JSMAxis yAxis;
+    @XmlElements(@XmlElement(name = "yAxis", type = JSMAxis.class))
+    public Object         yAxis;
 
 }

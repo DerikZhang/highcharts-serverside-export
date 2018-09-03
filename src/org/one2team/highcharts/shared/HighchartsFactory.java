@@ -6,6 +6,8 @@ public interface HighchartsFactory {
 
   Series createSeries ();
 
+    Axis createAxis();
+
   Point createPoint ();
 
 }

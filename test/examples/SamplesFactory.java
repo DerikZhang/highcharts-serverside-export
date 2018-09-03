@@ -3,12 +3,13 @@ package examples;
 import java.util.Calendar;
 
 import org.one2team.highcharts.server.JSMHighchartsFactory;
+import org.one2team.highcharts.shared.Axis;
 import org.one2team.highcharts.shared.ChartOptions;
+import org.one2team.highcharts.shared.DateTimeLabelFormats.TimeUnit;
 import org.one2team.highcharts.shared.HighchartsFactory;
 import org.one2team.highcharts.shared.Point;
 import org.one2team.highcharts.shared.Series;
 import org.one2team.highcharts.shared.SeriesType;
-import org.one2team.highcharts.shared.DateTimeLabelFormats.TimeUnit;
 
 import com.google.gwt.shared.Array;
 
@@ -34,7 +35,11 @@ public class SamplesFactory {
 		// axis
 		chartOptions.getXAxis ().setType ("datetime").getDateTimeLabelFormats ()
 				.set (TimeUnit.month, "%e. %b").set (TimeUnit.year, "%b");
-		chartOptions.getYAxis ().setMin (0).getTitle ().setText ("Snow depth (m)");
+        Axis newYAxis1 = factory.createAxis();
+        newYAxis1.setMin(0).getTitle().setText("Rainfall (mm)");
+        Axis newYAxis2 = factory.createAxis();
+        newYAxis2.setMin(0).getTitle().setText("Rainfall (mm)");
+        chartOptions.getYAxis().pushElement(newYAxis1).pushElement(newYAxis2);
 
 		// plotOptions
 		chartOptions
@@ -228,7 +233,7 @@ public class SamplesFactory {
 		ChartOptions chartOptions = factory.createChartOptions ();
 
 		chartOptions.getChart ().setDefaultSeriesType (SeriesType.column)
-				.setWidth (800).setHeight (400).setMarginLeft (70).setMarginTop (80);
+            .setWidth(800).setHeight(400).setMarginLeft(70).setMarginTop(80).setZoomType("xy");
 
 		// titles
 		chartOptions.getTitle ().setText ("Monthly Average Rainfall");
@@ -240,7 +245,11 @@ public class SamplesFactory {
 				.pushString ("Jul").pushString ("Aug").pushString ("Sep").pushString ("Oct")
 				.pushString ("Nov").pushString ("Dec");
 		// yAxis
-		chartOptions.getYAxis ().setMin (0).getTitle ().setText ("Rainfall (mm)");
+        Axis newYAxis1 = factory.createAxis();
+        newYAxis1.setMin(0).getTitle().setText("Rainfall (mm)");
+        Axis newYAxis2 = factory.createAxis();
+        newYAxis2.setMin(0).setOpposite(true).getTitle().setText("Rainfall (cc)");
+        chartOptions.getYAxis().pushElement(newYAxis1).pushElement(newYAxis2);
 
 		// Legend
 		chartOptions.getLegend ().setLayout ("vertical").setAlign ("left")
@@ -250,17 +259,22 @@ public class SamplesFactory {
 		chartOptions.getPlotOptions ().getColumn ().setBorderWidth (0);
 
 		// Several series
-		addSeries (chartOptions, "Tokyo", new double[] { 49.9, 71.5, 106.4, 129.2,
-				144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4 });
+        addSeries(chartOptions, "Tokyo", "column", 0,
+            new double[]{49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4});
 
-		addSeries (chartOptions, "New York", new double[] { 83.6, 78.8, 98.5, 93.4,
-				106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3 });
+        addSeries(chartOptions, "New York", "column", 0,
+            new double[]{83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3});
 
-		addSeries (chartOptions, "London", new double[] { 48.9, 38.8, 39.3, 41.4,
+        addSeries(chartOptions, "London", "column", 0, new double[]{48.9, 38.8, 39.3, 41.4,
 				47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2 });
 
-		addSeries (chartOptions, "Berlin", new double[] { 42.4, 33.2, 34.5, 39.7,
-				52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1 });
+        addSeries(chartOptions, "Berlin", "column", 0,
+            new double[]{42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1});
+
+        addSeries(chartOptions, "Berlin", "spline", 1,
+            new double[]{142.4, 133.2, 134.5, 139.7, 152.6, 175.5, 157.4, 160.4, 147.6, 139.1, 146.8, 151.1});
+        addSeries(chartOptions, "London", "spline", 1,
+            new double[]{148.9, 138.8, 139.3, 141.4, 147.0, 148.3, 159.0, 159.6, 152.4, 165.2, 159.3, 151.2});
 
 		return chartOptions;
 	}
@@ -281,12 +295,18 @@ public class SamplesFactory {
 				+ "xAxis: {"
 				+ "  categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']"
 				+ "},"
-				+ "yAxis: {"
-				+ "  min: 0,"
+				+ "yAxis: [{"
+                + "  min: 0,"
+                + "  opposite: true,"
 				+ "  title: {"
 				+ "    text: 'Rainfall (mm)'"
 				+ "  }"
-				+ "},"
+				+ "},{"
+                + "  min: 0,"
+                + "  title: {"
+                + "    text: 'Rainfall (cc)'"
+                + "  }"
+				+ "}],"
 				+ "legend: {"
 				+ "  layout: 'vertical',"
 				+ "  backgroundColor: '#FFFFFF',"
@@ -310,23 +330,30 @@ public class SamplesFactory {
 				+ "},"
 				+ "series: [{"
 				+ "  name: 'Tokyo',"
+				+ "  type: 'column',"
 				+ "  data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]"
 				+ ""
 				+ "},"
 				+ "{"
 				+ "  name: 'New York',"
+                + "  type: 'column',"
 				+ "  data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]"
-
 				+ "},"
-				+ "{"
-				+ "  name: 'London',"
-				+ "  data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]"
-
-				+ "},"
+                + "{"
+                + "  name: 'London',"
+                + "  type: 'column',"
+                + "  data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]"
+                + "},"
+                + "{"
+                + "  name: 'China',"
+                + "  type: 'spline',"
+                + "  yAxis: 1,"
+                + "  data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]"
+                + "},"
 				+ "{"
 				+ "  name: 'Berlin',"
+                + "  type: 'column',"
 				+ "  data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]"
-
 				+ "}]}";
 	}
 
@@ -339,10 +366,10 @@ public class SamplesFactory {
 		return cal.getTimeInMillis ();
 	}
 
-	private void addSeries (ChartOptions chartOptions, String seriesName,
+    private void addSeries(ChartOptions chartOptions, String seriesName, String type, int yAxis,
 			double[] datas) {
 
-		Series newSeries = factory.createSeries ().setName (seriesName);
+        Series newSeries = factory.createSeries().setName(seriesName).setType(type).setYAxis(yAxis);
 		final Array<Point> seriesDatas = newSeries.getData ();
 		for (double d : datas) {
 			seriesDatas.pushElement (factory.createPoint ().setY (d));

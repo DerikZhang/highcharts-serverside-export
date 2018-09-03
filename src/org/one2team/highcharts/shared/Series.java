@@ -39,5 +39,9 @@ public interface Series {
   Series setSize (String size);
 
   Series setCenter (String centerX, String centerY);
+
+    Series setYAxis(Integer yAxis);
+
+    Integer getYAxis();
   
 }
