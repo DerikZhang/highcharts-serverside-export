@@ -1,6 +1,7 @@
 package examples;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import org.one2team.highcharts.server.JSMHighchartsFactory;
 import org.one2team.highcharts.shared.Axis;
@@ -41,13 +42,16 @@ public class SamplesFactory {
         newYAxis2.setMin(0).getTitle().setText("Rainfall (mm)");
         chartOptions.getYAxis().pushElement(newYAxis1).pushElement(newYAxis2);
 
+        // legend
+        chartOptions.getLegend().setItemWidth(200);
+
 		// plotOptions
 		chartOptions
 				.getPlotOptions ()
-				.getPie ()
+				.getSpline()
 				.setAllowPointSelect (true)
 				.getDataLabels ()
-				.setEnabled (true)
+				.setEnabled (false)
 				.setColor ("#000000")
 				.setFormatter (
 						"function() {return '<b>'+ this.point.name +'</b>: '+ this.y +' %';}");

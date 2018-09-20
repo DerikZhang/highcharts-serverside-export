@@ -30,4 +30,8 @@ public interface Legend {
   Legend setReversed (boolean reversed);
 
   boolean isReversed ();
+
+  Legend setItemWidth(int i);
+
+    int getItemWidth();
 }

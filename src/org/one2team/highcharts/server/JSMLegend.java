@@ -99,5 +99,18 @@ public class JSMLegend extends JSMBaseObject implements Legend {
   public Integer x;
   @XmlElement
   public Integer y;
+    @XmlElement
+    public Integer itemWidth;
+
+    @Override
+    public Legend setItemWidth(int itemWidth) {
+        this.itemWidth = itemWidth;
+        return this;
+    }
+
+    @Override
+    public int getItemWidth() {
+        return this.itemWidth;
+    }
 
 }
