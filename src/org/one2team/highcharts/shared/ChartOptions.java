@@ -3,8 +3,10 @@ package org.one2team.highcharts.shared;
 import com.google.gwt.shared.Array;
 
 public interface ChartOptions {
-  
+
   Array<Series> getSeries ();
+
+    Array<String> getColors();
   
   Axis getXAxis ();
   

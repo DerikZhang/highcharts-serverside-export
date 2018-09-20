@@ -43,5 +43,9 @@ public interface Series {
     Series setYAxis(Integer yAxis);
 
     Integer getYAxis();
+
+    String getDashStyle();
+
+    Series setDashStyle(String dashStyle);
   
 }

@@ -70,6 +70,14 @@ public class JSMChartOptions extends JSMBaseObject implements ChartOptions {
     return (JSMArray<Series>) series;
   }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    @XmlTransient
+    public JSMArray<String> getColors() {
+        if (colors == null) colors = new JSMArray<String>();
+        return (JSMArray<String>)colors;
+    }
+
   @Override
   public Title getTitle () {
     if (title == null)
@@ -123,6 +131,9 @@ public class JSMChartOptions extends JSMBaseObject implements ChartOptions {
 //  @XmlTransient
   @XmlElements(@XmlElement(name = "series", type = JSMSeries.class))
   public Object series;
+
+    @XmlElements(@XmlElement(name = "colors", type = String.class))
+    public Object         colors;
 
   @XmlElement
   public JSMTitle title;

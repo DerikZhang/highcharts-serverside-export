@@ -147,6 +147,9 @@ public class JSMSeries extends JSMBaseObject implements Series {
   @XmlElement
   public String size;
   
+  @XmlElement
+  public String dashStyle;
+  
   public JSMCenter center;
 
   public static class JSMCenter extends JSMArrayString {
@@ -169,4 +172,15 @@ public class JSMSeries extends JSMBaseObject implements Series {
 
 		private static final long serialVersionUID = 1L;
   }
+
+@Override
+public String getDashStyle() {
+    return this.dashStyle;
+}
+
+@Override
+public Series setDashStyle(String dashStyle) {
+    this.dashStyle = dashStyle;
+    return this;
+}
 }
